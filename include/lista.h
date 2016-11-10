@@ -7,30 +7,12 @@
 template <class T>
 class Lista
 {
-    /* public: */
-
     // --- TDA Celda. Servirá como la celda enlazada de la lista.
     struct Celda
     {
-        /* private: */
-        // --- Datos miembro
         T elemento;
         Celda *siguiente;
         Celda* anterior;
-
-        /* public: */
-        /*   // --- Constructores */
-        /*   Celda() : siguiente(nullptr), anterior(nullptr) { } */
-        /*   Celda(T elem, Celda* sig, Celda* ant) : elemento(elem), siguiente(sig), anterior(ant) { } */
-
-        /*   // --- Operadores */
-        /* bool operator==(const Celda& otra); */
-        /* bool operator!=(const Celda& otra); */
-        /*   Celda& operator++(int); */
-        /*   Celda& operator--(int); */
-        /*   T& operator*(); */
-
-        /*   friend class Lista; */
     };
 
   private:

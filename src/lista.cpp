@@ -60,18 +60,6 @@ template <class T> void Lista<T>::insertar(const T &elem, int pos)
       it = it->siguiente;
     }
 
-    // nueva->siguiente = *it;
-    // nueva->anterior = (*it)->anterior;
-
-    // Celda* aux = *it;
-    
-    // (*it)->siguiente = nueva;
-    // *it = aux;
-    // (*it)->anterior = nueva;
-
-    // Celda* aux = it->anterior->siguiente;
-    // Celda* aux2 = it->anterior;
-
     nueva->siguiente = it;
     nueva->anterior = it->anterior;
     
