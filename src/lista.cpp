@@ -1,93 +1,97 @@
-// --- Métodos de Celda
+// --- Métodos de Iterador
 
-template <class T> bool Lista<T>::Celda::operator==(const Celda& otra)
+template <class T> bool Lista<T>::Iterador::operator==(const Iterador& otro) const
 {
-  return siguiente == otra.siguiente;
+    return *puntero == *otro.puntero;
 }
 
-template <class T> bool Lista<T>::Celda::operator!=(const Celda& otra)
+template <class T> bool Lista<T>::Iterador::operator!=(const Iterador& otro) const
 {
-  return !(*this == otra);
+    return !(*this == otro);
 }
 
-template <class T> typename Lista<T>::Celda& Lista<T>::Celda::operator++(int)
+template <class T> typename Lista<T>::Iterador& Lista<T>::Iterador::operator++(int)
 {
-  *this = *(this->siguiente);
+    puntero = &((*puntero)->siguiente);
 
     return *this;
 }
 
-template <class T> typename Lista<T>::Celda& Lista<T>::Celda::operator--(int)
+template <class T> typename Lista<T>::Iterador& Lista<T>::Iterador::operator--(int)
 {
-  *this = *(this->anterior);
+  puntero = &((*puntero)->anterior);
 
     return *this;
 }
 
-template <class T> T& Lista<T>::Celda::operator*()
+template <class T> T& Lista<T>::Iterador::operator*()
 {
-    return elemento;
+  return (*puntero)->elemento;
 }
 
 // --- Métodos de Lista
 
 template <class T> Lista<T>::Lista()
 {
-  cabecera = new Celda();
-  cabecera->anterior = cabecera;
-  cabecera->siguiente = cabecera;
+    cabecera = new Celda();
+    cabecera->anterior = cabecera;
+    cabecera->siguiente = cabecera;
 }
 
-template <class T> typename Lista<T>::Celda& Lista<T>::inicio() const
+template <class T> typename Lista<T>::Iterador Lista<T>::inicio()
 {
-    Celda& ret = (*cabecera)++;
-    std::cout << "Inicio: " << ret.siguiente << std::endl;
-    (*cabecera)--;
-
-    return ret;
+    return Iterador(&(cabecera->siguiente));
 }
 
-template <class T> const typename Lista<T>::Celda& Lista<T>::inicio_const() const
+template <class T> typename Lista<T>::Iterador Lista<T>::final()
 {
-    Celda& ret = (*cabecera)++;
-    (*cabecera)--;
-
-    return ret;
-}
-
-template <class T> typename Lista<T>::Celda& Lista<T>::final() const
-{
-  std::cout << "Final: " << cabecera << std::endl;
-  return *cabecera;
-}
-
-template <class T> const typename Lista<T>::Celda& Lista<T>::final_const() const
-{
-  return *cabecera;
+    Celda** p = &cabecera;
+    return Iterador(p);
 }
 
 template <class T> void Lista<T>::insertar(const T &elem, int pos)
 {
-    Celda& it = inicio();
-    Celda *nueva = new Celda(elem, nullptr, nullptr);
+  Celda* it = cabecera->siguiente;
+  Celda* nueva = new Celda;
+  nueva->elemento = elem;
 
-    for(int i = 0; i<pos; i++)
-        it++;
-
-    std::cout << "Posición: " << &it << std::endl;
-
-    Celda* aux = it.anterior->siguiente;
-    Celda* aux2 = it.anterior;
-    
-    it.anterior->siguiente = nueva;
-    it.anterior = nueva;
-
-    nueva->siguiente = aux;
-    nueva->anterior = aux2;
-    
-    for(Celda& i = inicio(); i!=final(); i++)
+    for(int i=0; i<pos; i++)
     {
-      std::cout << *i << ' ';
+      it = it->siguiente;
     }
-    std::cout << std::endl;
+
+    // nueva->siguiente = *it;
+    // nueva->anterior = (*it)->anterior;
+
+    // Celda* aux = *it;
+    
+    // (*it)->siguiente = nueva;
+    // *it = aux;
+    // (*it)->anterior = nueva;
+
+    // Celda* aux = it->anterior->siguiente;
+    // Celda* aux2 = it->anterior;
+
+    nueva->siguiente = it;
+    nueva->anterior = it->anterior;
+    
+    it->anterior->siguiente = nueva;
+    it->anterior = nueva;
+
+    
+}
+
+template <class T> void Lista<T>::borrar(int pos)
+{
+  Celda* it = cabecera->siguiente;
+
+  for(int i=0; i<pos; i++)
+    {
+      it = it->siguiente;
+    }
+
+  it->anterior->siguiente = it->siguiente;
+  it->siguiente->anterior = it->anterior;
+
+  delete it;
 }
