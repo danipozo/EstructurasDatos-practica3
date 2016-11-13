@@ -3,7 +3,7 @@
 #include "VD.h"
 #include "Pila_max.h"
 
-#define Cont VD
+#define Cont Cola
 
 using namespace std;
 
