@@ -40,19 +40,19 @@ template <class T> Lista<T>::Lista()
 
 template <class T> Lista<T>::~Lista()
 {
-  Celda* it = cabecera->siguiente;
+    Celda* it = cabecera->siguiente;
 
-  while(it != cabecera)
+    while(it != cabecera)
     {
-      Celda* aux = it->siguiente;;
-      delete it;
-      it = aux;
+        Celda* aux = it->siguiente;;
+        delete it;
+        it = aux;
     }
 
-  delete cabecera;
+    delete cabecera;
 }
 
-template <class T> typename Lista<T>::Iterador Lista<T>::inicio()
+template <class T> typename Lista<T>::Iterador Lista<T>::inicio() const
 {
     return Iterador(&(cabecera->siguiente));
 }
@@ -63,14 +63,19 @@ template <class T> typename Lista<T>::Iterador Lista<T>::final()
     return Iterador(p);
 }
 
-template <class T> T Lista<T>::obtener_elemento(int pos)
+template <class T> T Lista<T>::obtener_elemento(int pos) const
 {
-  Iterador it = inicio();
+    Iterador it = inicio();
 
-  for(int i=0; i<pos; i++)
-    it++;
+    for(int i=0; i<pos; i++)
+        it++;
 
-  return *it;
+    return *it;
+}
+
+template <class T> bool Lista<T>::vacia() const
+{
+    return cabecera->siguiente == cabecera;
 }
 
 template <class T> void Lista<T>::insertar(const T &elem, int pos)

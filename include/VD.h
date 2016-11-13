@@ -18,7 +18,8 @@ class VD
     // --- Métodos que no modifican el estado.
     int longitud() const { return usados; }  // Para el usuario la longitud es el espacio usado.
     int capacidad() const { return longitud_; }
-    T obtener_elemento(int pos);
+    T obtener_elemento(int pos) const;
+    bool vacia() const;
 
     // --- Métodos que modifican el estado.
     void insertar(const T& elem, int pos);

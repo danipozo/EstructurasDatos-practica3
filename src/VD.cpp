@@ -1,6 +1,11 @@
-template <class T> T VD<T>::obtener_elemento(int pos)
+template <class T> T VD<T>::obtener_elemento(int pos) const
 {
     return vector[pos];
+}
+
+template <class T> bool VD<T>::vacia() const
+{
+    return usados == 0;
 }
 
 template <class T> void VD<T>::insertar(const T& elem, int pos)
@@ -8,7 +13,7 @@ template <class T> void VD<T>::insertar(const T& elem, int pos)
     if(usados == longitud_)
         redimensionar(longitud_ == 0 ? 1 : longitud_*2);
 
-    for(int i=pos; i<usados; i++)
+    for(int i=(usados); i>=pos; i--)
     {
         vector[i+1] = vector[i];
     }

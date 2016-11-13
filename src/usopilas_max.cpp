@@ -1,20 +1,25 @@
 #include <iostream>
-#include "pila_max.h"
+#include "lista.h"
+#include "VD.h"
+#include "Pila_max.h"
+
+#define Cont VD
 
 using namespace std;
 
 int main(){
 
-  Pila_max p;
+  PilaMax<Cont> p;
   int i;
 
-  for ( i=10; i>=0 ; i--) 
-    p.poner(i);
+  int v[] = {5,3,6,9,2,7};
+  for ( i=0; i<6; i++) 
+    p.insertar(v[i]);
   
   while (!p.vacia() ){
-    elemento x = p.tope();
-    cout << x<<endl;
-    p.quitar();
+    PilaMax<Cont>::Par x = p.tope();
+    cout << x.elemento << ' ' << x.maximo <<endl;
+    p.borrar();
   }     
   
   return 0;

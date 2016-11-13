@@ -44,9 +44,10 @@ class Lista
     ~Lista();
 
     // --- Métodos que no modifican el estado
-    Iterador inicio();
+    Iterador inicio() const;
     Iterador final();
-    T obtener_elemento(int pos);
+    T obtener_elemento(int pos) const;
+    bool vacia() const;
 
     // --- Métodos que modifican el estado
     void insertar(const T& elem, int pos);
