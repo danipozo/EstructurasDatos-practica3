@@ -35,19 +35,25 @@ class Lista
         Iterador& operator++(int);
         Iterador& operator--(int);
         T& operator*();
+
+        friend class Lista;
     };
 
-
+    // --- Constructor/destructor.
     Lista();
+    ~Lista();
 
-    // --- Funciones que no modifican el estado
+    // --- Métodos que no modifican el estado
     Iterador inicio();
-
     Iterador final();
+    T obtener_elemento(int pos);
 
-    // --- Funciones que modifican el estado
+    // --- Métodos que modifican el estado
     void insertar(const T& elem, int pos);
     void borrar(int pos);
+
+    void insertar(const T& elem, const Iterador& pos);
+    void borrar(const Iterador& pos);
 };
 
 #include "lista.cpp"
