@@ -3,7 +3,15 @@
 #include "VD.h"
 #include "Pila_max.h"
 
+#ifdef USACOLA
 #define Cont Cola
+#elif USALISTA
+#define Cont Lista
+#elif USAVD
+#define Cont VD
+#else
+#error "No se ha pasado una bandera válida."
+#endif
 
 using namespace std;
 
@@ -12,9 +20,8 @@ int main(){
   PilaMax<Cont> p;
   int i;
 
-  int v[] = {5,3,6,9,2,7};
-  for ( i=0; i<6; i++) 
-    p.insertar(v[i]);
+  for ( i=10; i>=0; i--) 
+    p.insertar(i);
   
   while (!p.vacia() ){
     PilaMax<Cont>::Par x = p.tope();
